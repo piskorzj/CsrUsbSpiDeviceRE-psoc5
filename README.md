@@ -18,7 +18,20 @@ How to use
 * Import project to your workspace
 * Check SPI pins placement in CsrUsbSpiDeviceRE.cydwr (change placement to whatever you need)
 * Program the device
-* Connect CSR module
+* Connect CSR module (PSoC voltage level is 5V, so to protect CSR inputs connect MOSI, CLK, SS/CE signals through resistor and 3V3 zener diode circuit. MISO can be connected directly)
+```
+MOSI/CLK/SS PSoC Side       R                    MOSI/CLK/SS CSR Side
+--------------------------\/\/\/\----*-------------------------------
+                                     |
+                                     - D
+                                     ^
+                                     |
+                                     |
+                                    GND
+
+R - some small value, I used 22 Ohm, can be more (up to 68 I guess, there are calculators online to get min/max values)
+D - zener diode 3V3
+```
 * Device should be recognized, drivers and whole BlueSuite can be found on Internet
 * Blue LED should blink/light during communication with CSR
 
